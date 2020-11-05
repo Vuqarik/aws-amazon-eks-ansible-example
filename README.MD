@@ -94,7 +94,7 @@ The Deployment consists of one main playbook triggering multible tasks, cloudfor
 - eks-cluster-autoscaler.task.yaml: setup of the [cluster-autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
 - eks-container-instights.task.yaml: enable [container insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContainerInsights.html) for the Amazon EKS cluster
 - eks-external-dns.task.yaml: setup of the Route53 automation via [external-dns](https://github.com/kubernetes-sigs/external-dns)
-- eks-ingress-controller.task.yaml: setup of the [alb-ingress-controller](https://github.com/kubernetes-sigs/aws-alb-ingress-controller) to automate service exposure
+- eks-ingress-controller.task.yaml: setup of the [alb-loadbalancer-controller](https://github.com/kubernetes-sigs/aws-loadbalancer-controller) to automate service exposure
 - eks-metrics-server.task.yaml: setup of the metrics server used by the [Horizontal Pod Autoscaler](https://kubernetes.io/de/docs/tasks/run-application/horizontal-pod-autoscale/)
 - eks-storage-provider-ebscsi.task.yaml: setup of the [Amazon Elastic Block Store (EBS) CSI driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver). The driver will ensure automatic provisioning of persistent block storage volumes for workloads
 - eks-storage-provider-efscsi.task.yaml: setup of the [Amazon EFS CSI driver](https://github.com/kubernetes-sigs/aws-efs-csi-driver). The driver will ensure automatic provisioning of persistent shared storage volumes for workloads
@@ -105,7 +105,7 @@ The Deployment consists of one main playbook triggering multible tasks, cloudfor
 - eks-cluster-autoscaler-iam.template.yaml: provisioning of the IAM Policy granting access for the cluster autoscaler to Amazon EC2 and EC2 Autoscaling groups. 
 - eks-container-insights-iam.template.yaml: provisioning of the IAM Policy allowing Amazon Cloudwatch Access via the Worker Nodes
 - eks-external-dns-iam.template.yaml: provisioning of the IAM Policy granting access for the external-dns pods to Route53
-- eks-ingress-controller-iam.template.yaml: provisioning of the IAM Policy granting access for the alb-ingress-controller towards Elastic Load Balancing
+- eks-loadbalancer-iam.template.yaml: provisioning of the IAM Policy granting access for the alb-loadbalancer-controller towards Elastic Load Balancing
 - eks-storage-provider-ebscsi-iam.template.yaml: IAM Policies to Allow EBS Access via the CSI Driver Deployment
 - eks-storage-provider-efscsi-storage.template.yaml: provisioning of the EFS FileSystem, Mountpoints and related Securitygroups
 
@@ -190,7 +190,7 @@ I0813 14:32:48.119775       1 recorder.go:53] kubebuilder/manager/events "level"
 I0813 14:32:48.222253       1 controller.go:134] kubebuilder/controller "level"=0 "msg"="Starting Controller"  "controller"="alb-ingress-controller"
 I0813 14:32:48.322547       1 controller.go:154] kubebuilder/controller "level"=0 "msg"="Starting workers"  "controller"="alb-ingress-controller" "worker count"=1
 ```
-if you replace *alb-ingress* with *external-dns* or *cluster-autoscaler* you can use the same command to get the logs of these extensions as well. 
+if you replace *alb-loadbalancer* with *external-dns* or *cluster-autoscaler* you can use the same command to get the logs of these extensions as well. 
 
 ## Testing the example deployments
 
@@ -257,7 +257,7 @@ There are many other things to try out. Feel free to share your ideas :)
     - [eksctl](https://github.com/weaveworks/eksctl)
     - [cluster-autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
     - [external-dns](https://github.com/kubernetes-sigs/external-dns)
-    - [alb-ingress-controller](https://github.com/kubernetes-sigs/aws-alb-ingress-controller)
+    - [alb-loadbalancer-controller](https://github.com/kubernetes-sigs/aws-alb-ingress-controller)
     - [Horizontal Pod Autoscaler](https://kubernetes.io/de/docs/tasks/run-application/horizontal-pod-autoscale/)
     - [Amazon EFS CSI driver](https://github.com/kubernetes-sigs/aws-efs-csi-driver)
     - [Amazon Elastic Block Store (EBS) CSI driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)

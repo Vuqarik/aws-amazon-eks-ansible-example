@@ -12,6 +12,9 @@ To Upgrade, simply run the eks-deploy-cluster.playbook.yaml with your parameters
 ### Changed
 - Switched the ingress controller deployment to utilize the freshly released [alb-loadbalancer-controler](https://github.com/kubernetes-sigs/aws-load-balancer-controller)
 
+### Fixes
+- typo at the master playbook (tasks instead of task) did prevent deployment. This is fixed
+
 ## [1.0.0] - inital release
 
 ### inital version

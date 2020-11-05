@@ -3,6 +3,15 @@
 ## THE CONTENT OF THIS FILE IS FOR LEARNING PURPOSES ONLY  ##
 ## created by David Surey, Amazon Web Services, 2020       ##
 #############################################################
+- name: create loadbalancer-controller namespace
+  delegate_to: "{{ EKSBastionInstancePublicIP }}"
+  community.kubernetes.k8s: 
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: cert-manager
 
 - name: create Policies for loadbalancer-controller
   cloudformation:
@@ -24,13 +33,64 @@
     --region {{ eksexample_region }} \
     --override-existing-serviceaccounts
 
+- name: deploy the certmanager
+  delegate_to: "{{ EKSBastionInstancePublicIP }}"
+  community.kubernetes.k8s: 
+    state: present
+    definition: "{{ lookup('template', './k8s/loadbalancer-controller/eks-loadbalancer-controller-certmanager-{{ item }}.manifest.yaml') | from_yaml }}"
+  loop: 
+    - crd
+    - crd2
+    - crd3
+    - crd4
+    - crd5
+    - crd6
+    - crole
+    - crole2
+    - crole3
+    - crole4
+    - crole5
+    - crole6
+    - crole7
+    - crole8
+    - crole9
+    - crole10
+    - sa
+    - sa2
+    - sa3
+    - cb
+    - cb2
+    - cb3
+    - cb4
+    - cb5
+    - cb6
+    - cb7
+    - role
+    - role2
+    - role3
+    - deployment
+    - deployment2
+    - deployment3
+    - service
+    - service2
+    - resource
+    - resource2
+    
 - name: deploy the alb-loadbalancer-controller
   delegate_to: "{{ EKSBastionInstancePublicIP }}"
   community.kubernetes.k8s: 
     state: present
-    definition: "{{ lookup('template', './k8s/loadbalancer-controller/eks-loadbalancer-controler-{{ item }}.manifest.yaml') | from_yaml }}"
+    definition: "{{ lookup('template', './k8s/loadbalancer-controller/eks-loadbalancer-controller-loadbalancer-{{ item }}.manifest.yaml') | from_yaml }}"
   loop: 
-    - clusterrole
-    - clusterrolebinding
-    - certmanager
+    - crd
+    - crole
+    - role
+    - sa
+    - cb
+    - rb
+    - service
+    - resource
     - deployment
+    - resource2
+    - resource3
+    - resource4
